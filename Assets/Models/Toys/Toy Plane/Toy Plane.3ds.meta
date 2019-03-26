@@ -1,0 +1,202 @@
+fileFormatVersion: 2
+guid: a0afea13b09164142b64b9b45aa0b542
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: canopy
+    100002: fuselage
+    100004: lf_wheel
+    100006: lf_wheel_b
+    100008: lf_wheel_s
+    100010: lf_wing
+    100012: lf_wing_re
+    100014: propeller
+    100016: rear_gear
+    100018: rear_wheel
+    100020: rt_wheel
+    100022: rt_wheel_b
+    100024: rt_wheel_s
+    100026: rt_wing
+    100028: rt_wing_re
+    100030: spinner
+    100032: tail
+    100034: //RootNode
+    400000: canopy
+    400002: fuselage
+    400004: lf_wheel
+    400006: lf_wheel_b
+    400008: lf_wheel_s
+    400010: lf_wing
+    400012: lf_wing_re
+    400014: propeller
+    400016: rear_gear
+    400018: rear_wheel
+    400020: rt_wheel
+    400022: rt_wheel_b
+    400024: rt_wheel_s
+    400026: rt_wing
+    400028: rt_wing_re
+    400030: spinner
+    400032: tail
+    400034: //RootNode
+    2100000: mat_00120
+    2100002: mat_00121
+    2100004: mat_00122
+    2100006: mat_00123
+    2300000: canopy
+    2300002: fuselage
+    2300004: lf_wheel
+    2300006: lf_wheel_b
+    2300008: lf_wheel_s
+    2300010: lf_wing
+    2300012: lf_wing_re
+    2300014: propeller
+    2300016: rear_gear
+    2300018: rear_wheel
+    2300020: rt_wheel
+    2300022: rt_wheel_b
+    2300024: rt_wheel_s
+    2300026: rt_wing
+    2300028: rt_wing_re
+    2300030: spinner
+    2300032: tail
+    3300000: canopy
+    3300002: fuselage
+    3300004: lf_wheel
+    3300006: lf_wheel_b
+    3300008: lf_wheel_s
+    3300010: lf_wing
+    3300012: lf_wing_re
+    3300014: propeller
+    3300016: rear_gear
+    3300018: rear_wheel
+    3300020: rt_wheel
+    3300022: rt_wheel_b
+    3300024: rt_wheel_s
+    3300026: rt_wing
+    3300028: rt_wing_re
+    3300030: spinner
+    3300032: tail
+    4300000: fuselage
+    4300002: canopy
+    4300004: rt_wing
+    4300006: rt_wing_re
+    4300008: tail
+    4300010: lf_wing
+    4300012: lf_wing_re
+    4300014: rt_wheel
+    4300016: rt_wheel_b
+    4300018: lf_wheel
+    4300020: rt_wheel_s
+    4300022: lf_wheel_b
+    4300024: lf_wheel_s
+    4300026: rear_wheel
+    4300028: propeller
+    4300030: rear_gear
+    4300032: spinner
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_00120
+    second: {fileID: 2100000, guid: 823c02db1992bf642abecfe9077ff573, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_00121
+    second: {fileID: 2100000, guid: 272c2762959eecc48b6cd9a17e8c45d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_00122
+    second: {fileID: 2100000, guid: afc74ae753f6ba64584ad296dd315e19, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_00123
+    second: {fileID: 2100000, guid: 6b2b219790f270c4cace6306f86212e4, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

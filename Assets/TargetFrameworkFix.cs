@@ -9,7 +9,7 @@ public class VisualStudioProjectGenerationPostProcess : AssetPostprocessor
 	private static string version = "4.7.2";
 	private static void OnGeneratedCSProjectFiles()
 		{
-			Debug.Log("Target framework fixed to version" + version);
+			Debug.Log("Target framework fixed to version " + version);
 			var dir = Directory.GetCurrentDirectory();
 			var files = Directory.GetFiles(dir, "*.csproj");
 			foreach (var file in files)
