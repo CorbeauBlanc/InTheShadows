@@ -5,13 +5,35 @@ ModelImporter:
   fileIDToRecycleName:
     100000: 4
     100002: //RootNode
+    100004: default
     400000: 4
     400002: //RootNode
+    400004: default
     2100000: 4Mat
+    2100002: Material.001
+    2100004: defaultMat
     2300000: 4
+    2300002: default
     3300000: 4
+    3300002: default
     4300000: 4
-  externalObjects: {}
+    4300002: default
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 4Mat
+    second: {fileID: 2100000, guid: 57597ba63712cf54784f401c7666b9e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 57597ba63712cf54784f401c7666b9e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
+    second: {fileID: 2100000, guid: 57597ba63712cf54784f401c7666b9e9, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -46,10 +68,10 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
-    importVisibility: 1
+    importVisibility: 0
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -67,7 +89,7 @@ ModelImporter:
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
