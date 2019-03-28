@@ -19,14 +19,15 @@ public class VisualStudioProjectGenerationPostProcess : AssetPostprocessor
 	static void ChangeTargetFrameworkInfProjectFiles(string file)
 	{
 		var text = File.ReadAllText(file);
-		var find = "TargetFrameworkVersion>v4.6</TargetFrameworkVersion";
+		var find = "TargetFrameworkVersion>v4.5</TargetFrameworkVersion";
 		var replace = "TargetFrameworkVersion>v" + version + "</TargetFrameworkVersion";
 
 		if (text.IndexOf(find) != -1)
 		{
 			text = Regex.Replace(text, find, replace);
 			File.WriteAllText(file, text);
-		}
+		} else
+			Debug.LogError("Could not fix Target Framework version!\nString not found: " + find);
 	}
 
 }

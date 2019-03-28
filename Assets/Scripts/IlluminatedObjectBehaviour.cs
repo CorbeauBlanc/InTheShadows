@@ -11,12 +11,16 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 	public float translationSpeed = .5F;
 	public float rotationMargin = 1;
 	public float translationMargin = 1;
+	public GameObject nextIlluminatedPiece;
+	public bool isValidated = false;
 
 	private GameObject illuminatedObject;
+	private IlluminatedObjectBehaviour nextPieceBehaviour;
 	private Difficulty difficulty;
 	private bool mouse1Down = false;
 	private bool mouse2Down = false;
 	private Vector3 tmpRotations;
+	private bool isInIdleState = false;
 
 	/// <summary>
 	/// Start is called on the frame when a script is enabled just before
@@ -33,11 +37,26 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
-		HandleKeyboardInputs();
-		HandleMouseInputs();
-		SetTmpRotations();
-		if (IsInRightPosition())
-			Debug.Log("WIN");
+		if (!isInIdleState && !isValidated)
+		{
+			HandleKeyboardInputs();
+			HandleMouseInputs();
+			SetTmpRotations();
+			if (IsInRightPosition())
+			{
+				if (nextIlluminatedPiece)
+				{
+					isInIdleState = true;
+					nextIlluminatedPiece = Instantiate(nextIlluminatedPiece);
+					nextPieceBehaviour = nextIlluminatedPiece.GetComponent<IlluminatedObjectBehaviour>();
+				} else
+				{
+					isValidated = true;
+					Debug.Log("WIN");
+				}
+			}
+		} else if (isInIdleState)
+			isValidated = nextPieceBehaviour.isValidated;
 	}
 
 	private void HandleKeyboardInputs()
