@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 20335d57512e4d5438a2fe29348d72a2
+guid: 31688983f8dd5bc4ab8d997d6bffccea
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,15 +8,23 @@ ModelImporter:
     400000: default
     400002: //RootNode
     2100000: defaultMat
+    2100002: Metal
+    2100004: Glass_Lit.001
     2300000: default
     3300000: default
     4300000: default
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: defaultMat
-    second: {fileID: 2100000, guid: d69de539f6f08ee4e97544b4a55232ba, type: 2}
+      name: Glass_Lit.001
+    second: {fileID: 2100000, guid: 18c55885f491b824e87d2b0a429e4bde, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 65b0ef4cb09841247ab76305e4fda713, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -51,7 +59,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
-    importVisibility: 1
+    importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
@@ -72,7 +80,7 @@ ModelImporter:
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
