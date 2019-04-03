@@ -5,6 +5,7 @@ using UnityEngine;
 public class SelectionObjectBehaviour : MonoBehaviour
 {
 
+	public string levelName;
 	public GameObject relatedIlluminatedObject;
 
 	private List<Material> objectsMaterial = new List<Material>();
@@ -31,6 +32,7 @@ public class SelectionObjectBehaviour : MonoBehaviour
 		{
 			GameManagerBehaviour.instance.selectedObject = relatedIlluminatedObject;
 			GameManagerBehaviour.instance.selectedUIAnimator = objectAnimator;
+			GameManagerBehaviour.instance.currentLevelName = levelName;
 			foreach (Material mat in objectsMaterial)
 				mat.EnableKeyword("_EMISSION");
 		}
@@ -45,6 +47,7 @@ public class SelectionObjectBehaviour : MonoBehaviour
 		{
 			GameManagerBehaviour.instance.selectedObject = null;
 			GameManagerBehaviour.instance.selectedUIAnimator = null;
+			GameManagerBehaviour.instance.currentLevelName = "";
 			foreach (Material mat in objectsMaterial)
 				mat.DisableKeyword("_EMISSION");
 		}

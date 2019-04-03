@@ -12,7 +12,7 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 	public float rotationMargin = 1;
 	public float translationMargin = 1;
 	public GameObject nextIlluminatedPiece;
-	public bool isValidated = false;
+	[HideInInspector] public bool isValidated = false;
 
 	private GameObject illuminatedObject;
 	private IlluminatedObjectBehaviour nextPieceBehaviour;
@@ -42,21 +42,26 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 			HandleKeyboardInputs();
 			HandleMouseInputs();
 			SetTmpRotations();
-			if (IsInRightPosition())
-			{
-				if (nextIlluminatedPiece)
-				{
-					isInIdleState = true;
-					nextIlluminatedPiece = Instantiate(nextIlluminatedPiece);
-					nextPieceBehaviour = nextIlluminatedPiece.GetComponent<IlluminatedObjectBehaviour>();
-				} else
-				{
-					isValidated = true;
-					Debug.Log("WIN");
-				}
-			}
 		} else if (isInIdleState)
 			isValidated = nextPieceBehaviour.isValidated;
+	}
+
+	private void CheckPosition()
+	{
+		if (IsInRightPosition())
+		{
+			if (nextIlluminatedPiece)
+			{
+				isInIdleState = true;
+				nextIlluminatedPiece = Instantiate(nextIlluminatedPiece);
+				nextPieceBehaviour = nextIlluminatedPiece.GetComponent<IlluminatedObjectBehaviour>();
+			} else
+			{
+				isValidated = true;
+				Debug.Log("WIN");
+				GameManagerBehaviour.instance.LevelComplete();
+			}
+		}
 	}
 
 	private void HandleKeyboardInputs()
@@ -73,6 +78,12 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 		}
 	}
 
+	private void ShowCursor(bool val)
+	{
+		Cursor.visible = val;
+		Cursor.lockState = val ? CursorLockMode.None : CursorLockMode.Locked;
+	}
+
 	private void HandleMouseInputs()
 	{
 		float hAxis = Input.GetAxis("Mouse X");
@@ -86,15 +97,22 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 			illuminatedObject.transform.SetParent(null);
 			transform.rotation = Quaternion.identity;
 			illuminatedObject.transform.SetParent(transform);
+			CheckPosition();
 		}
 
 		if (mouse1Down && hAxis != 0 && (!difficulty.VerticalRotatationEnabled || vAxis != 0))
 		{
+			ShowCursor(false);
 			transform.Rotate(vAxis * rotationSpeed, 0, 0, Space.Self);
 			transform.Rotate(0, -hAxis * rotationSpeed, 0, Space.World);
 		}
 		else if (mouse2Down && difficulty.TranslationEnabled)
+		{
+			ShowCursor(false);
 			transform.Translate(hAxis * translationSpeed, vAxis * translationSpeed, 0);
+		}
+		else if (!mouse1Down && !mouse2Down)
+			ShowCursor(true);
 	}
 
 	private void SetTmpRotations()

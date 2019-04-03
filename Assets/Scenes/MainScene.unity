@@ -568,6 +568,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lightbulb
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 31688983f8dd5bc4ab8d997d6bffccea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 31688983f8dd5bc4ab8d997d6bffccea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.6
@@ -861,6 +865,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349721784}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &362155730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 7d6ee5a94a79d9b45a131b6aec8775bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 755190058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &362155733
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362155730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 70.64559, y: 19.1, z: 70.64574}
+  m_Center: {x: -0.0021705627, y: 12.58732, z: 0}
 --- !u!1001 &440736966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1253,14 +1276,15 @@ GameObject:
   - component: {fileID: 762739374}
   - component: {fileID: 762739375}
   - component: {fileID: 762739376}
+  - component: {fileID: 762739378}
   - component: {fileID: 762739377}
   m_Layer: 9
-  m_Name: SelectionBody
+  m_Name: SelectionObj1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &762739374
 Transform:
   m_ObjectHideFlags: 0
@@ -1269,7 +1293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 762739373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.818808, y: 24.3, z: -7.1938066}
+  m_LocalPosition: {x: 1.818808, y: 53.7, z: -7.1938066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 250828463}
@@ -1301,6 +1325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ad0910f7e850844924c73636909012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelName: test
   relatedIlluminatedObject: {fileID: 8359979615941351660, guid: c35506efe437de34e8d69647f5ad1588,
     type: 3}
 --- !u!95 &762739377
@@ -1322,6 +1347,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &762739378
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762739373}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &833308269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,7 +1570,7 @@ GameObject:
   - component: {fileID: 1045132858}
   - component: {fileID: 1045132861}
   m_Layer: 9
-  m_Name: SelectionBody
+  m_Name: SelectionObj2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1591,6 +1632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ad0910f7e850844924c73636909012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelName: test2
   relatedIlluminatedObject: {fileID: 2062457224609754012, guid: cf3ae01991bf7164e8de682a988631fb,
     type: 3}
 --- !u!95 &1045132861
@@ -1779,10 +1821,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf2c0711873fe94388e492f8eee951b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraAnimations:
+    introAnimation: {fileID: 7400000, guid: 4cf60ab1026afd94caf59a7a55578004, type: 2}
+    UIInAnimation: {fileID: 7400000, guid: b8d42360e0f144b4a8a85c846d0bc4f6, type: 2}
+    UIOutAnimation: {fileID: 7400000, guid: fe7973b29f6b3ca4287779f56f81bf20, type: 2}
+  uIObjectAnimations:
+    appearAnimation: {fileID: 0}
+    disappearAnimation: {fileID: 0}
   UIMode: 1
+  selectedUIAnimator: {fileID: 0}
   selectedObject: {fileID: 0}
+  currentLevelName: 
   pointLight: {fileID: 2105032754}
   spotLight: {fileID: 1588944361}
+  listLevels:
+  - {fileID: 762739376}
+  - {fileID: 1045132860}
+  - {fileID: 1297487261}
+  - {fileID: 1634494083}
 --- !u!4 &1094259444
 Transform:
   m_ObjectHideFlags: 0
@@ -2122,7 +2178,7 @@ GameObject:
   - component: {fileID: 1297487259}
   - component: {fileID: 1297487262}
   m_Layer: 9
-  m_Name: SelectionBody
+  m_Name: SelectionObj3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2185,6 +2241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ad0910f7e850844924c73636909012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelName: test3
   relatedIlluminatedObject: {fileID: 6355718473984411204, guid: b6202401e3094134e99c17dd75fbfb41,
     type: 3}
 --- !u!95 &1297487262
@@ -2305,8 +2362,8 @@ Camera:
   m_GameObject: {fileID: 1354393648}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 4
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -2840,7 +2897,7 @@ GameObject:
   - component: {fileID: 1634494081}
   - component: {fileID: 1634494084}
   m_Layer: 9
-  m_Name: SelectionBody
+  m_Name: SelectionObj4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2903,6 +2960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ad0910f7e850844924c73636909012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelName: test4
   relatedIlluminatedObject: {fileID: 2860434909113995982, guid: 777edf17111264c48b040d6178684075,
     type: 3}
 --- !u!95 &1634494084

@@ -10,12 +10,12 @@ PrefabInstance:
     - target: {fileID: 1017588817873187621, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: m_Name
-      value: IlluminatedKetle
+      value: Illuminated Tea Pot
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187619, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.12
+      value: 1.822
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187619, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
@@ -77,6 +77,11 @@ PrefabInstance:
       propertyPath: winningAngles.y
       value: -18.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
+        type: 3}
+      propertyPath: rotationMargin
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe286a280c8025459a96fc8c4df8870, type: 3}
 --- !u!4 &8359979615941351658 stripped
@@ -110,19 +115,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c67adaae82bfc9f438ef7309f495ea65, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.03359904
+      value: 0.02528722
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c67adaae82bfc9f438ef7309f495ea65, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.15806639
+      value: 0.6687432
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c67adaae82bfc9f438ef7309f495ea65, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0053816913
+      value: -0.02276872
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c67adaae82bfc9f438ef7309f495ea65, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98684204
+      value: 0.74271446
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c67adaae82bfc9f438ef7309f495ea65, type: 3}
       propertyPath: m_RootOrder
@@ -134,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c67adaae82bfc9f438ef7309f495ea65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -18.2
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c67adaae82bfc9f438ef7309f495ea65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
