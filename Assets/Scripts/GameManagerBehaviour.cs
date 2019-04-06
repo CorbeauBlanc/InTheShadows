@@ -32,6 +32,7 @@ public class GameManagerBehaviour : MonoBehaviour
 
 	private Animator cameraAnimator;
 	private GameObject currentLevelObject;
+	private bool uIInitiated = false;
 
 	/// <summary>
 	/// Awake is called when the script instance is being loaded.
@@ -53,12 +54,16 @@ public class GameManagerBehaviour : MonoBehaviour
 	{
 		string lastUnlockedLvl;
 
-		listLevels[0].gameObject.SetActive(true);
-		if ((lastUnlockedLvl = PlayerPrefs.GetString("LastUnlockedLvl", "")) != "")
-			EnableLevel(1, lastUnlockedLvl);
-		UIMode = true;
-		Cursor.visible = true;
-		Cursor.lockState = CursorLockMode.None;
+		if (!uIInitiated)
+		{
+			uIInitiated = true;
+			listLevels[0].gameObject.SetActive(true);
+			if ((lastUnlockedLvl = PlayerPrefs.GetString("LastUnlockedLvl", "")) != "")
+				EnableLevel(1, lastUnlockedLvl);
+			UIMode = true;
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+		}
 	}
 
 	/// <summary>
@@ -71,7 +76,7 @@ public class GameManagerBehaviour : MonoBehaviour
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		Invoke("InitiateUI", cameraAnimations.introAnimation.length);
-		PlayerPrefs.SetString("LastUnlockedLvl", "");
+		//PlayerPrefs.SetString("LastUnlockedLvl", "");
 	}
 
 	/// <summary>
@@ -79,18 +84,10 @@ public class GameManagerBehaviour : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
-		if (UIMode)
+		if (cameraAnimator.GetCurrentAnimatorStateInfo(0).IsName("Introduction") && Input.GetKeyDown("space"))
 		{
-			if (Input.GetButtonDown("Fire1") && selectedObject)
-			{
-				UIMode = false;
-				currentLevelObject = Instantiate(selectedObject);
-				cameraAnimator.SetTrigger("look at fabric");
-				selectedUIAnimator.SetBool("idle", false);
-				selectedUIAnimator.SetTrigger("disappear");
-				selectedObject = null;
-				Invoke("SwitchToGameMode", cameraAnimations.UIOutAnimation.length);
-			}
+			cameraAnimator.SetTrigger("skip intro");
+			InitiateUI();
 		}
 	}
 
@@ -120,7 +117,8 @@ public class GameManagerBehaviour : MonoBehaviour
 	private IEnumerator ShowUnlockedLvl(int i)
 	{
 		yield return new WaitForSeconds(cameraAnimations.UIInAnimation.length + 1);
-		listLevels[i].gameObject.SetActive(true);
+		if (i > -1)
+			listLevels[i].gameObject.SetActive(true);
 		UIMode = true;
 	}
 
@@ -130,5 +128,16 @@ public class GameManagerBehaviour : MonoBehaviour
 		cameraAnimator.SetTrigger("look at selection");
 		StartCoroutine(ShowUnlockedLvl(UnlockNextLevel()));
 		currentLevelName = "";
+	}
+
+	public void LaunchSelectedLvl()
+	{
+		UIMode = false;
+		currentLevelObject = Instantiate(selectedObject);
+		cameraAnimator.SetTrigger("look at fabric");
+		selectedUIAnimator.SetBool("idle", false);
+		selectedUIAnimator.SetTrigger("disappear");
+		selectedObject = null;
+		Invoke("SwitchToGameMode", cameraAnimations.UIOutAnimation.length);
 	}
 }

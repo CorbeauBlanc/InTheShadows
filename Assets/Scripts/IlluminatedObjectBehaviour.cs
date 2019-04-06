@@ -5,7 +5,8 @@ using UnityEngine;
 public class IlluminatedObjectBehaviour : MonoBehaviour
 {
 	public DifficultyType difficultyType;
-	public Vector3 winningAngles;
+	public bool isFirstObject;
+	public Quaternion winningAngles;
 	public Vector3 winningPosition;
 	public float rotationSpeed = 2;
 	public float translationSpeed = .5F;
@@ -19,7 +20,6 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 	private Difficulty difficulty;
 	private bool mouse1Down = false;
 	private bool mouse2Down = false;
-	private Vector3 tmpRotations;
 	private bool isInIdleState = false;
 
 	/// <summary>
@@ -30,6 +30,11 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 	{
 		difficulty = new Difficulty[] { Difficulty.easy, Difficulty.medium, Difficulty.hard }[(int)difficultyType];
 		illuminatedObject = GetComponentInChildren<MeshRenderer>().gameObject;
+
+/*
+		Debug.Log(illuminatedObject.transform.rotation.x + " | " + illuminatedObject.transform.rotation.y + " | " +
+				illuminatedObject.transform.rotation.z + " | " + illuminatedObject.transform.rotation.w);
+ */
 	}
 
 	/// <summary>
@@ -41,27 +46,8 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 		{
 			HandleKeyboardInputs();
 			HandleMouseInputs();
-			SetTmpRotations();
 		} else if (isInIdleState)
 			isValidated = nextPieceBehaviour.isValidated;
-	}
-
-	private void CheckPosition()
-	{
-		if (IsInRightPosition())
-		{
-			if (nextIlluminatedPiece)
-			{
-				isInIdleState = true;
-				nextIlluminatedPiece = Instantiate(nextIlluminatedPiece);
-				nextPieceBehaviour = nextIlluminatedPiece.GetComponent<IlluminatedObjectBehaviour>();
-			} else
-			{
-				isValidated = true;
-				Debug.Log("WIN");
-				GameManagerBehaviour.instance.LevelComplete();
-			}
-		}
 	}
 
 	private void HandleKeyboardInputs()
@@ -78,12 +64,6 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 		}
 	}
 
-	private void ShowCursor(bool val)
-	{
-		Cursor.visible = val;
-		Cursor.lockState = val ? CursorLockMode.None : CursorLockMode.Locked;
-	}
-
 	private void HandleMouseInputs()
 	{
 		float hAxis = Input.GetAxis("Mouse X");
@@ -98,43 +78,74 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 			transform.rotation = Quaternion.identity;
 			illuminatedObject.transform.SetParent(transform);
 			CheckPosition();
-		}
+		} else if (Input.GetButtonUp("Fire2"))
+			CheckPosition();
 
 		if (mouse1Down && hAxis != 0 && (!difficulty.VerticalRotatationEnabled || vAxis != 0))
 		{
-			ShowCursor(false);
+			if (Cursor.visible)
+				ShowCursor(false);
 			transform.Rotate(vAxis * rotationSpeed, 0, 0, Space.Self);
 			transform.Rotate(0, -hAxis * rotationSpeed, 0, Space.World);
 		}
 		else if (mouse2Down && difficulty.TranslationEnabled)
 		{
-			ShowCursor(false);
+			if (Cursor.visible)
+				ShowCursor(false);
 			transform.Translate(hAxis * translationSpeed, vAxis * translationSpeed, 0);
 		}
 		else if (!mouse1Down && !mouse2Down)
-			ShowCursor(true);
+			if (!Cursor.visible)
+				ShowCursor(true);
 	}
 
-	private void SetTmpRotations()
+	private void ShowCursor(bool val)
 	{
-		tmpRotations.Set(illuminatedObject.transform.eulerAngles.x > 180 ? illuminatedObject.transform.eulerAngles.x - 360 :
-																			illuminatedObject.transform.eulerAngles.x,
-						illuminatedObject.transform.eulerAngles.y > 180 ? illuminatedObject.transform.eulerAngles.y - 360 :
-																			illuminatedObject.transform.eulerAngles.y,
-						illuminatedObject.transform.eulerAngles.z > 180 ? illuminatedObject.transform.eulerAngles.z - 360 :
-																			illuminatedObject.transform.eulerAngles.z);
+		Cursor.visible = val;
+		Cursor.lockState = val ? CursorLockMode.None : CursorLockMode.Locked;
 	}
 
-	private bool IsInWinningMargins(Vector3 data1, Vector3 winningData, float margin)
+	private void CheckPosition()
 	{
-		return (data1.x > winningData.x - margin && data1.x < winningData.x + margin &&
-				data1.y > winningData.y - margin && data1.y < winningData.y + margin);
+/* 		Debug.Log(illuminatedObject.transform.rotation.x + " | " + illuminatedObject.transform.rotation.y + " | " +
+				illuminatedObject.transform.rotation.z + " | " + illuminatedObject.transform.rotation.w); */
+		if (IsInRightAngles() && IsInRightPosition())
+		{
+			if (nextIlluminatedPiece)
+			{
+				isInIdleState = true;
+				nextIlluminatedPiece = Instantiate(nextIlluminatedPiece);
+				nextPieceBehaviour = nextIlluminatedPiece.GetComponent<IlluminatedObjectBehaviour>();
+				nextIlluminatedPiece.transform.SetParent(transform);
+			} else
+			{
+				isValidated = true;
+				Debug.Log("WIN");
+				GameManagerBehaviour.instance.LevelComplete();
+				Destroy(gameObject);
+			}
+		}
 	}
 
 	private bool IsInRightPosition()
 	{
-		return (IsInWinningMargins(tmpRotations, winningAngles, rotationMargin) &&
-				(!difficulty.TranslationEnabled || IsInWinningMargins(transform.position, winningPosition, translationMargin)));
+		return (!difficulty.TranslationEnabled || (difficulty.TranslationEnabled && isFirstObject) ||
+				(transform.position.x > winningPosition.x - translationMargin && transform.position.x < winningPosition.x + translationMargin &&
+				transform.position.y > winningPosition.y - translationMargin && transform.position.y < winningPosition.y + translationMargin));
+	}
+
+	private bool IsInRightAngles()
+	{
+		int s = (int)Mathf.Sign(illuminatedObject.transform.rotation.w);
+
+		return (s * illuminatedObject.transform.rotation.x > winningAngles.x - rotationMargin &&
+				s * illuminatedObject.transform.rotation.x < winningAngles.x + rotationMargin &&
+				s * illuminatedObject.transform.rotation.y > winningAngles.y - rotationMargin &&
+				s * illuminatedObject.transform.rotation.y < winningAngles.y + rotationMargin &&
+				s * illuminatedObject.transform.rotation.z > winningAngles.z - rotationMargin &&
+				s * illuminatedObject.transform.rotation.z < winningAngles.z + rotationMargin &&
+				s * illuminatedObject.transform.rotation.w > winningAngles.w - rotationMargin &&
+				s * illuminatedObject.transform.rotation.w < winningAngles.w + rotationMargin);
 	}
 
 }

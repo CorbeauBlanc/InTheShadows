@@ -10,6 +10,7 @@ public class SelectionObjectBehaviour : MonoBehaviour
 
 	private List<Material> objectsMaterial = new List<Material>();
 	private Animator objectAnimator;
+	private bool isSelected = false;
 
 	/// <summary>
 	/// Start is called on the frame when a script is enabled just before
@@ -24,12 +25,30 @@ public class SelectionObjectBehaviour : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Update is called every frame, if the MonoBehaviour is enabled.
+	/// </summary>
+	void Update()
+	{
+		if (!GameManagerBehaviour.instance.UIMode)
+			return;
+
+		if (Input.GetButtonUp("Fire1") && isSelected)
+		{
+			isSelected = false;
+			foreach (Material mat in objectsMaterial)
+				mat.DisableKeyword("_EMISSION");
+			GameManagerBehaviour.instance.LaunchSelectedLvl();
+		}
+	}
+
+	/// <summary>
 	/// Called every frame while the mouse is over the GUIElement or Collider.
 	/// </summary>
 	void OnMouseEnter()
 	{
 		if (GameManagerBehaviour.instance.UIMode)
 		{
+			isSelected = true;
 			GameManagerBehaviour.instance.selectedObject = relatedIlluminatedObject;
 			GameManagerBehaviour.instance.selectedUIAnimator = objectAnimator;
 			GameManagerBehaviour.instance.currentLevelName = levelName;
@@ -45,6 +64,7 @@ public class SelectionObjectBehaviour : MonoBehaviour
 	{
 		if (GameManagerBehaviour.instance.UIMode)
 		{
+			isSelected = false;
 			GameManagerBehaviour.instance.selectedObject = null;
 			GameManagerBehaviour.instance.selectedUIAnimator = null;
 			GameManagerBehaviour.instance.currentLevelName = "";

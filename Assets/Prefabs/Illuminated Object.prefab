@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1017588817873187619}
   - component: {fileID: 1017588817873187620}
   m_Layer: 0
-  m_Name: IlluminatedObject
+  m_Name: Illuminated Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficultyType: 0
-  winningAngles: {x: 0, y: 0, z: 0}
+  winningAngles: {x: 0, y: 0, z: 0, w: 0}
   winningPosition: {x: 0, y: 0, z: 0}
   rotationSpeed: 2
-  translationSpeed: 0.5
-  rotationMargin: 1
-  translationMargin: 1
+  translationSpeed: 0.1
+  rotationMargin: 0.05
+  translationMargin: 0.05
+  nextIlluminatedPiece: {fileID: 0}
+  isValidated: 0
