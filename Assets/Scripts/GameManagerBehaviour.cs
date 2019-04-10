@@ -23,7 +23,7 @@ public class GameManagerBehaviour : MonoBehaviour
 	[HideInInspector] public bool UIMode = false;
 	[HideInInspector] public Animator selectedUIAnimator = null;
 	[HideInInspector] public GameObject selectedObject = null;
-	[HideInInspector] public string currentLevelName;
+	[HideInInspector] public string currentLevelCode;
 
 
 	public GameObject pointLight;
@@ -46,20 +46,31 @@ public class GameManagerBehaviour : MonoBehaviour
 	{
 		if (lvlNb == listLevels.Length)
 			return false;
-		listLevels[lvlNb].gameObject.SetActive((listLevels[lvlNb].levelName == lvlName) || EnableLevel(lvlNb + 1, lvlName));
+		listLevels[lvlNb].gameObject.SetActive((listLevels[lvlNb].levelCode == lvlName) || EnableLevel(lvlNb + 1, lvlName));
 		return listLevels[lvlNb].gameObject.activeSelf;
+	}
+
+	private void ShowSelectionObjects()
+	{
+		string lastUnlockedLvl;
+
+		listLevels[0].gameObject.SetActive(true);
+		if ((lastUnlockedLvl = PlayerPrefs.GetString("LastUnlockedLvl", "")) != "")
+			EnableLevel(1, lastUnlockedLvl);
+	}
+
+	private void HideSelectionObjects()
+	{
+		foreach (SelectionObjectBehaviour lvl in listLevels)
+			lvl.gameObject.SetActive(false);
 	}
 
 	private void InitiateUI()
 	{
-		string lastUnlockedLvl;
-
 		if (!uIInitiated)
 		{
 			uIInitiated = true;
-			listLevels[0].gameObject.SetActive(true);
-			if ((lastUnlockedLvl = PlayerPrefs.GetString("LastUnlockedLvl", "")) != "")
-				EnableLevel(1, lastUnlockedLvl);
+			ShowSelectionObjects();
 			UIMode = true;
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
@@ -76,7 +87,8 @@ public class GameManagerBehaviour : MonoBehaviour
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		Invoke("InitiateUI", cameraAnimations.introAnimation.length);
-		//PlayerPrefs.SetString("LastUnlockedLvl", "");
+		//PlayerPrefs.SetString("LastUnlockedLvl", "test4");
+		PlayerPrefs.DeleteAll();
 	}
 
 	/// <summary>
@@ -93,8 +105,8 @@ public class GameManagerBehaviour : MonoBehaviour
 
 	private void SwitchToGameMode()
 	{
+		HideSelectionObjects();
 		TurnOnLights(false);
-		selectedUIAnimator.SetBool("idle", true);
 	}
 
 	private void TurnOnLights(bool val)
@@ -106,9 +118,9 @@ public class GameManagerBehaviour : MonoBehaviour
 	private int UnlockNextLevel()
 	{
 		for (int i = 0; i < listLevels.Length; i++)
-			if ((listLevels[i].levelName == currentLevelName) && (i + 1 != listLevels.Length) && (!listLevels[i + 1].gameObject.activeSelf))
+			if ((listLevels[i].levelCode == currentLevelCode) && (i + 1 != listLevels.Length) && (!listLevels[i + 1].gameObject.activeSelf))
 			{
-				PlayerPrefs.SetString("LastUnlockedLvl", listLevels[i + 1].levelName);
+				PlayerPrefs.SetString("LastUnlockedLvl", listLevels[i + 1].levelCode);
 				return i + 1;
 			}
 		return -1;
@@ -124,19 +136,20 @@ public class GameManagerBehaviour : MonoBehaviour
 
 	public void LevelComplete()
 	{
+		PlayerPrefs.SetString(currentLevelCode, "true");
+		ShowSelectionObjects();
 		TurnOnLights(true);
 		cameraAnimator.SetTrigger("look at selection");
 		StartCoroutine(ShowUnlockedLvl(UnlockNextLevel()));
-		currentLevelName = "";
+		currentLevelCode = "";
 	}
 
 	public void LaunchSelectedLvl()
 	{
 		UIMode = false;
 		currentLevelObject = Instantiate(selectedObject);
-		cameraAnimator.SetTrigger("look at fabric");
-		selectedUIAnimator.SetBool("idle", false);
 		selectedUIAnimator.SetTrigger("disappear");
+		cameraAnimator.SetTrigger("look at fabric");
 		selectedObject = null;
 		Invoke("SwitchToGameMode", cameraAnimations.UIOutAnimation.length);
 	}

@@ -107,8 +107,10 @@ public class IlluminatedObjectBehaviour : MonoBehaviour
 
 	private void CheckPosition()
 	{
-/* 		Debug.Log(illuminatedObject.transform.rotation.x + " | " + illuminatedObject.transform.rotation.y + " | " +
-				illuminatedObject.transform.rotation.z + " | " + illuminatedObject.transform.rotation.w); */
+/*
+		Debug.Log(illuminatedObject.transform.rotation.x + " | " + illuminatedObject.transform.rotation.y + " | " +
+				illuminatedObject.transform.rotation.z + " | " + illuminatedObject.transform.rotation.w);
+ */
 		if (IsInRightAngles() && IsInRightPosition())
 		{
 			if (nextIlluminatedPiece)

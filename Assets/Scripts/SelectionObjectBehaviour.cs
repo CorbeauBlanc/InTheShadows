@@ -5,12 +5,15 @@ using UnityEngine;
 public class SelectionObjectBehaviour : MonoBehaviour
 {
 
-	public string levelName;
 	public GameObject relatedIlluminatedObject;
+	public string puzzleTitle;
+	public string puzzleDifficulty;
+	[HideInInspector] public string levelCode;
 
 	private List<Material> objectsMaterial = new List<Material>();
 	private Animator objectAnimator;
 	private bool isSelected = false;
+	private bool hasBeenSolved = false;
 
 	/// <summary>
 	/// Start is called on the frame when a script is enabled just before
@@ -22,6 +25,7 @@ public class SelectionObjectBehaviour : MonoBehaviour
 		foreach (Renderer rnd in listRend)
 			objectsMaterial.Add(rnd.material);
 		objectAnimator = GetComponent<Animator>();
+		objectAnimator.SetTrigger("appear");
 	}
 
 	/// <summary>
@@ -35,10 +39,19 @@ public class SelectionObjectBehaviour : MonoBehaviour
 		if (Input.GetButtonUp("Fire1") && isSelected)
 		{
 			isSelected = false;
+			PuzzleSelectionBehaviour.instance.HidePuzzleInfos();
 			foreach (Material mat in objectsMaterial)
 				mat.DisableKeyword("_EMISSION");
 			GameManagerBehaviour.instance.LaunchSelectedLvl();
 		}
+	}
+
+	/// <summary>
+	/// This function is called when the object becomes enabled and active.
+	/// </summary>
+	void OnEnable()
+	{
+		hasBeenSolved = PlayerPrefs.GetString(levelCode) == "true";
 	}
 
 	/// <summary>
@@ -49,9 +62,10 @@ public class SelectionObjectBehaviour : MonoBehaviour
 		if (GameManagerBehaviour.instance.UIMode)
 		{
 			isSelected = true;
+			PuzzleSelectionBehaviour.instance.ShowPuzzleInfos(puzzleTitle, puzzleDifficulty, hasBeenSolved);
 			GameManagerBehaviour.instance.selectedObject = relatedIlluminatedObject;
 			GameManagerBehaviour.instance.selectedUIAnimator = objectAnimator;
-			GameManagerBehaviour.instance.currentLevelName = levelName;
+			GameManagerBehaviour.instance.currentLevelCode = levelCode;
 			foreach (Material mat in objectsMaterial)
 				mat.EnableKeyword("_EMISSION");
 		}
@@ -65,9 +79,10 @@ public class SelectionObjectBehaviour : MonoBehaviour
 		if (GameManagerBehaviour.instance.UIMode)
 		{
 			isSelected = false;
+			PuzzleSelectionBehaviour.instance.HidePuzzleInfos();
 			GameManagerBehaviour.instance.selectedObject = null;
 			GameManagerBehaviour.instance.selectedUIAnimator = null;
-			GameManagerBehaviour.instance.currentLevelName = "";
+			GameManagerBehaviour.instance.currentLevelCode = "";
 			foreach (Material mat in objectsMaterial)
 				mat.DisableKeyword("_EMISSION");
 		}
