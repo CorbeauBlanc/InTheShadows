@@ -18,6 +18,9 @@ public class GameManagerBehaviour : MonoBehaviour
 		public AnimationClip appearAnimation;
 		public AnimationClip disappearAnimation;
 	}
+
+	public AnimationClip validatedObjAnimation;
+
 	[HideInInspector] public CameraAnimations cameraAnimations = new CameraAnimations();
 	public UIObjectAnimations uIObjectAnimations = new UIObjectAnimations();
 	[HideInInspector] public bool UIMode = false;
@@ -34,12 +37,27 @@ public class GameManagerBehaviour : MonoBehaviour
 	private GameObject currentLevelObject;
 	private bool uIInitiated = false;
 
+	private bool testMode = false;
+
 	/// <summary>
 	/// Awake is called when the script instance is being loaded.
 	/// </summary>
 	void Awake()
 	{
 		instance = this;
+		cameraAnimator = Camera.main.GetComponent<Animator>();
+	}
+
+	/// <summary>
+	/// Update is called every frame, if the MonoBehaviour is enabled.
+	/// </summary>
+	void Update()
+	{
+		if (cameraAnimator.enabled && cameraAnimator.GetCurrentAnimatorStateInfo(0).IsName("Introduction") && Input.GetKeyDown(KeyCode.Space))
+		{
+			cameraAnimator.SetTrigger("skip intro");
+			InitiateUI();
+		}
 	}
 
 	private bool EnableLevel(int lvlNb, string lvlName)
@@ -55,7 +73,7 @@ public class GameManagerBehaviour : MonoBehaviour
 		string lastUnlockedLvl;
 
 		listLevels[0].gameObject.SetActive(true);
-		if ((lastUnlockedLvl = PlayerPrefs.GetString("LastUnlockedLvl", "")) != "")
+		if ((lastUnlockedLvl = testMode ? listLevels[listLevels.Length - 1].levelCode : PlayerPrefs.GetString("LastUnlockedLvl", "")) != "")
 			EnableLevel(1, lastUnlockedLvl);
 	}
 
@@ -74,32 +92,6 @@ public class GameManagerBehaviour : MonoBehaviour
 			UIMode = true;
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
-		}
-	}
-
-	/// <summary>
-	/// Start is called on the frame when a script is enabled just before
-	/// any of the Update methods is called the first time.
-	/// </summary>
-	void Start()
-	{
-		cameraAnimator = Camera.main.GetComponent<Animator>();
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-		Invoke("InitiateUI", cameraAnimations.introAnimation.length);
-		//PlayerPrefs.SetString("LastUnlockedLvl", "test4");
-		PlayerPrefs.DeleteAll();
-	}
-
-	/// <summary>
-	/// Update is called every frame, if the MonoBehaviour is enabled.
-	/// </summary>
-	void Update()
-	{
-		if (cameraAnimator.GetCurrentAnimatorStateInfo(0).IsName("Introduction") && Input.GetKeyDown("space"))
-		{
-			cameraAnimator.SetTrigger("skip intro");
-			InitiateUI();
 		}
 	}
 
@@ -130,18 +122,51 @@ public class GameManagerBehaviour : MonoBehaviour
 	{
 		yield return new WaitForSeconds(cameraAnimations.UIInAnimation.length + 1);
 		if (i > -1)
+		{
 			listLevels[i].gameObject.SetActive(true);
+			SoundManagerBehaviour.instance.PlayPopSound();
+		}
 		UIMode = true;
 	}
 
-	public void LevelComplete()
+	public bool TestModeEnabled()
 	{
-		PlayerPrefs.SetString(currentLevelCode, "true");
-		ShowSelectionObjects();
+		return testMode;
+	}
+
+	public void DeletePlayerData()
+	{
+		PlayerPrefs.DeleteAll();
+	}
+
+	public void StartGame(bool testModeEnabled)
+	{
+		SoundManagerBehaviour.instance.StartMusicGame();
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		testMode = testModeEnabled;
+		Invoke("InitiateUI", cameraAnimations.introAnimation.length);
+		Camera.main.GetComponent<PostProcessing>().BlurEnabled(false);
+		cameraAnimator.enabled = true;
+	}
+
+	public void GoToSelection()
+	{
+		MainMenuBehaviour.instance.ShowMainMenu(false);
+		Destroy(currentLevelObject);
 		TurnOnLights(true);
+		ShowSelectionObjects();
 		cameraAnimator.SetTrigger("look at selection");
 		StartCoroutine(ShowUnlockedLvl(UnlockNextLevel()));
 		currentLevelCode = "";
+	}
+
+	public IEnumerator LevelComplete()
+	{
+		PlayerPrefs.SetString(currentLevelCode, "true");
+		SoundManagerBehaviour.instance.PlayValidatedSound();
+		yield return new WaitForSeconds(1 * validatedObjAnimation.length);
+		MainMenuBehaviour.instance.ShowMainMenu(true);
 	}
 
 	public void LaunchSelectedLvl()
@@ -152,5 +177,11 @@ public class GameManagerBehaviour : MonoBehaviour
 		cameraAnimator.SetTrigger("look at fabric");
 		selectedObject = null;
 		Invoke("SwitchToGameMode", cameraAnimations.UIOutAnimation.length);
+	}
+
+	public void QuitGame()
+	{
+		Debug.Log("QUIT");
+		Application.Quit();
 	}
 }

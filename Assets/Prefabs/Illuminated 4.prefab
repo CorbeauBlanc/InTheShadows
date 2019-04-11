@@ -152,32 +152,32 @@ PrefabInstance:
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: winningAngles.x
-      value: 7.65
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: winningAngles.y
-      value: 160.51
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: winningAngles.z
-      value: -2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: winningPosition.x
-      value: 1.79
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: winningPosition.y
-      value: 5.93
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: winningPosition.z
-      value: -4.33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
@@ -189,6 +189,11 @@ PrefabInstance:
         type: 3}
       propertyPath: isFirstObject
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
+        type: 3}
+      propertyPath: winningAngles.w
+      value: -0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe286a280c8025459a96fc8c4df8870, type: 3}

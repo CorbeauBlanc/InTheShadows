@@ -167,7 +167,7 @@ PrefabInstance:
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: winningAngles.y
-      value: -0.13
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}

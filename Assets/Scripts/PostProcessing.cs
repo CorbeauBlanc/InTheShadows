@@ -7,7 +7,7 @@ public class PostProcessing : MonoBehaviour
 
 	[HideInInspector] public Material mat;
 
-	private bool blur;
+	private bool blur = true;
 
 	void OnRenderImage(RenderTexture src, RenderTexture dst)
 	{

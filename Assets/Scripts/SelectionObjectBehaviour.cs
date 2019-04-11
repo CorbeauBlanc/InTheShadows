@@ -39,6 +39,7 @@ public class SelectionObjectBehaviour : MonoBehaviour
 		if (Input.GetButtonUp("Fire1") && isSelected)
 		{
 			isSelected = false;
+			SoundManagerBehaviour.instance.PlayWoodenClickSound();
 			PuzzleSelectionBehaviour.instance.HidePuzzleInfos();
 			foreach (Material mat in objectsMaterial)
 				mat.DisableKeyword("_EMISSION");
@@ -62,6 +63,7 @@ public class SelectionObjectBehaviour : MonoBehaviour
 		if (GameManagerBehaviour.instance.UIMode)
 		{
 			isSelected = true;
+			SoundManagerBehaviour.instance.PlayPaperSound();
 			PuzzleSelectionBehaviour.instance.ShowPuzzleInfos(puzzleTitle, puzzleDifficulty, hasBeenSolved);
 			GameManagerBehaviour.instance.selectedObject = relatedIlluminatedObject;
 			GameManagerBehaviour.instance.selectedUIAnimator = objectAnimator;

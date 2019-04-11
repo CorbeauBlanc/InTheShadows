@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1017588817873187619}
   - component: {fileID: 1017588817873187620}
+  - component: {fileID: 2333306291990467494}
   m_Layer: 0
   m_Name: Illuminated Object
   m_TagString: Untagged
@@ -44,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficultyType: 0
+  isFirstObject: 0
   winningAngles: {x: 0, y: 0, z: 0, w: 0}
   winningPosition: {x: 0, y: 0, z: 0}
   rotationSpeed: 2
@@ -51,4 +53,25 @@ MonoBehaviour:
   rotationMargin: 0.05
   translationMargin: 0.05
   nextIlluminatedPiece: {fileID: 0}
+  validatedParticles: {fileID: 585229380373495814, guid: 27f5c50fec3294c48bf6d44926706bf1,
+    type: 3}
   isValidated: 0
+--- !u!95 &2333306291990467494
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017588817873187621}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e720c06e9ce99d143a0136fd820734d8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
