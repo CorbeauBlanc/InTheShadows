@@ -16,6 +16,7 @@ public class PostProcessing : MonoBehaviour
 			RenderTexture tmp = RenderTexture.GetTemporary(src.width, src.height);
 			Graphics.Blit(src, tmp, mat, 0);
 			Graphics.Blit(tmp, dst, mat, 1);
+			RenderTexture.ReleaseTemporary(tmp);
 		}
 		else
 			Graphics.Blit(src, dst);

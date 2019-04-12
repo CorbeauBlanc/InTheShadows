@@ -14,6 +14,8 @@ public class SoundManagerBehaviour : MonoBehaviour
 	public AudioSource popSound;
 	public AudioSource woodenClickSound;
 	public AudioSource paperSound;
+	public AudioSource lampSound;
+
 
 
 
@@ -66,6 +68,12 @@ public class SoundManagerBehaviour : MonoBehaviour
 	{
 		if (soundEnabled)
 			paperSound.Play();
+	}
+
+	public void PlayLampSound()
+	{
+		if (soundEnabled)
+			lampSound.Play();
 	}
 
 	public void SwitchSoundEnabled()

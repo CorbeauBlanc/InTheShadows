@@ -103,6 +103,7 @@ public class GameManagerBehaviour : MonoBehaviour
 
 	private void TurnOnLights(bool val)
 	{
+		SoundManagerBehaviour.instance.PlayLampSound();
 		pointLight.SetActive(val);
 		spotLight.SetActive(!val);
 	}
