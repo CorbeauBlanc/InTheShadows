@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2868805977278033937}
   m_LocalRotation: {x: -0.2687453, y: 0.42928645, z: 0.089056045, w: -0.8576469}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.041579403, y: 0.041579396, z: 0.041579396}
+  m_LocalScale: {x: 0.042501856, y: 0.06320445, z: 0.047813337}
   m_Children: []
   m_Father: {fileID: 2860434909113995976}
   m_RootOrder: 0
@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
       propertyPath: winningAngles.z
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1017588817873187620, guid: 8fe286a280c8025459a96fc8c4df8870,
         type: 3}
